@@ -24,6 +24,8 @@ public class AdminLogin extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		
+		System.out.println("here");
+		
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		if(email.equals("admin@jtp.com")&&password.equals("admin123")){
