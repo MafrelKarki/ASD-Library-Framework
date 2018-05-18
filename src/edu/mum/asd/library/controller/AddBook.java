@@ -13,6 +13,11 @@ import edu.mum.asd.library.dao.BookDao;
 import edu.mum.asd.library.model.BookModel;
 @WebServlet("/AddBook")
 public class AddBook extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
