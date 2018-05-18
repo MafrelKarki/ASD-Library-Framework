@@ -24,6 +24,7 @@ public class BookDao {
 			ps.setInt(6,0);
 			status=ps.executeUpdate();
 			con.close();
+			System.out.println("Karki");
 			
 		}catch(Exception e){System.out.println(e);}
 		
