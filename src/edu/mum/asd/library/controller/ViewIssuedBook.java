@@ -36,16 +36,18 @@ public class ViewIssuedBook extends HttpServlet {
 		out.println("<div class='container'>");
 		
 		List<Loan> list=BookDao.viewIssuedBooks();
-		
+		out.println("<div class='panel panel-default'>");
+		out.println("<div class='panel-heading'>Librarians</div>");
+		out.println("<div class='panel-body'>");
 		out.println("<table class='table table-bordered table-striped'>");
 		out.println("<tr><th>Callno</th><th>Student Id</th><th>Student Name</th><th>Student Mobile</th><th>Issued Date</th><th>Return Status</th></tr>");
 		for(Loan bean:list){
 			out.println("<tr><td>"+bean.getCallNo()+"</td><td>"+bean.getStudent().getUserId()+"</td><td>"+bean.getStudent().getFirstName() +" "+bean.getStudent().getLastName()+"</td><td>"+bean.getStudent().getPhone()+"</td><td>"+bean.getIssuedDate()+"</td><td>"+bean.getReturnStatus()+"</td></tr>");
 		}
 		out.println("</table>");
-		
 		out.println("</div>");
-		
+		out.println("</div>");
+		out.println("</div>");
 		
 		request.getRequestDispatcher("footer.html").include(request, response);
 		out.close();
