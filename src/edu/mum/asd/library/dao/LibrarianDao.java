@@ -8,10 +8,15 @@ import java.util.List;
 
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
+import edu.mum.asd.library.model.LibraryUserBuilder;
+import edu.mum.asd.library.model.UserBuilder;
+import edu.mum.asd.library.model.UserDirector;
 import edu.mum.asd.library.model.UserRole;
 
 public class LibrarianDao implements IDAO{
 
+	
+	
 	public static int save(Librarian bean) {
 		int status = 0;
 		try {
@@ -39,8 +44,6 @@ public class LibrarianDao implements IDAO{
 	public static int update(Librarian bean,long id) {
 		int status = 0;
 		try {
-//			System.out.println("inside update of librarian");
-//			System.out.println("librarian's id ->"+ bean.getUserId());
 			Connection con = DB.getCon();
 			PreparedStatement ps = con
 					.prepareStatement("update user set firstname=?, lastname=?, email=?, phone=?, password=?, address=? where userid=?");
@@ -69,14 +72,23 @@ public class LibrarianDao implements IDAO{
 			PreparedStatement ps = con.prepareStatement("select * from user where role = 'LIBRARIAN' ");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Librarian bean = new Librarian();
-				bean.setUserId(rs.getLong("userid"));
-				bean.setFirstName(rs.getString("firstname"));
-				bean.setLastName(rs.getString("lastname"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPhone(rs.getString("phone"));
-				bean.setPassword(rs.getString("password"));
-				bean.setAddress(rs.getString("address"));
+//				Librarian bean = new Librarian();
+				UserBuilder userBuilder = new LibraryUserBuilder();
+				UserDirector userDirector = new UserDirector(userBuilder);
+				
+				userDirector.buildUserId(rs.getLong("userid"));
+				userDirector.buildName(rs.getString("firstname"), rs.getString("lastname"));
+				userDirector.buildContact(rs.getString("email"), rs.getString("phone"), rs.getString("address"));
+				userDirector.buildPassword(rs.getString("password"));
+				Librarian bean = (Librarian) userDirector.getUser();
+				
+//				bean.setUserId(rs.getLong("userid"));
+//				bean.setFirstName(rs.getString("firstname"));
+//				bean.setLastName(rs.getString("lastname"));
+//				bean.setEmail(rs.getString("email"));
+//				bean.setPhone(rs.getString("phone"));
+//				bean.setPassword(rs.getString("password"));
+//				bean.setAddress(rs.getString("address"));
 				list.add(bean);
 			}
 			con.close();
@@ -89,20 +101,31 @@ public class LibrarianDao implements IDAO{
 	}
 
 	public static Librarian viewById(int id) {
-		Librarian bean = new Librarian();
+		Librarian bean = null;
 		try {
 			Connection con = DB.getCon();
 			PreparedStatement ps = con.prepareStatement("select * from user where userid=? and role = 'LIBRARIAN' ");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				bean.setUserId(rs.getLong(1));
-				bean.setFirstName(rs.getString(2));
-				bean.setLastName(rs.getString(3));
-				bean.setEmail(rs.getString(4));
-				bean.setPhone(rs.getString(5));
-				bean.setPassword(rs.getString(6));
-				bean.setAddress(rs.getString(7));
+				
+				UserBuilder userBuilder = new LibraryUserBuilder();
+				UserDirector userDirector = new UserDirector(userBuilder);
+				
+				userDirector.buildUserId(rs.getLong("userid"));
+				userDirector.buildName(rs.getString("firstname"), rs.getString("lastname"));
+				userDirector.buildContact(rs.getString("email"), rs.getString("phone"), rs.getString("address"));
+				userDirector.buildPassword(rs.getString("password"));
+				bean = (Librarian) userDirector.getUser();
+				
+				
+//				bean.setUserId(rs.getLong(1));
+//				bean.setFirstName(rs.getString(2));
+//				bean.setLastName(rs.getString(3));
+//				bean.setEmail(rs.getString(4));
+//				bean.setPhone(rs.getString(5));
+//				bean.setPassword(rs.getString(6));
+//				bean.setAddress(rs.getString(7));
 			}
 			con.close();
 

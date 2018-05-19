@@ -1,5 +1,8 @@
 package edu.mum.asd.library.dao;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import edu.mum.asd.library.model.Admin;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.Student;
@@ -46,7 +49,12 @@ public class Test {
 		
 		
 		//LibrarianDao libDao = new LibrarianDao();
-//		Librarian 
+		LibrarianDao librarianDao = new LibrarianDao();
+		ArrayList<Librarian> libs = new ArrayList<Librarian>();
+		libs = (ArrayList<Librarian>) LibrarianDao.view();
+		for(Librarian lib : libs) {
+			System.out.println(lib.getFirstName());
+		}
 
 	}
 }
