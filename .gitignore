@@ -5,6 +5,7 @@
 /target/
 */target/**
 */target/*
+DB.java
 .settings/
 
 # Log file
