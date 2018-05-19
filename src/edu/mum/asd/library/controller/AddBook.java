@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.mum.asd.library.dao.BookDao;
-import edu.mum.asd.library.model.BookModel;
+import edu.mum.asd.library.model.Book;
+
 @WebServlet("/AddBook")
 public class AddBook extends HttpServlet {
 	/**
@@ -18,10 +18,11 @@ public class AddBook extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		
+		PrintWriter out = response.getWriter();
+
 		out.print("<!DOCTYPE html>");
 		out.print("<html>");
 		out.println("<head>");
@@ -30,23 +31,24 @@ public class AddBook extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		request.getRequestDispatcher("navlibrarian.html").include(request, response);
-		
+
 		out.println("<div class='container'>");
-		String callno=request.getParameter("callno");
-		String name=request.getParameter("name");
-		String author=request.getParameter("author");
-		String publisher=request.getParameter("publisher");
-		String squantity=request.getParameter("quantity");
-		int quantity=Integer.parseInt(squantity);
-		BookModel bean=new BookModel(callno,name,author,publisher,quantity);
-		int i=BookDao.save(bean);
-		if(i>0){
+		String callno = request.getParameter("callno");
+		String name = request.getParameter("name");
+		String author = request.getParameter("author");
+		String publisher = request.getParameter("publisher");
+		String squantity = request.getParameter("quantity");
+		int quantity = Integer.parseInt(squantity);
+		Book bean = new Book(callno, name, author, publisher, quantity);
+
+		FacadeSave facedSave = new FacadeSave();
+		int i = facedSave.save(bean);
+		if (i > 0) {
 			out.println("<h3>Book saved successfully</h3>");
 		}
 		request.getRequestDispatcher("addbookform.html").include(request, response);
 		out.println("</div>");
-		
-		
+
 		request.getRequestDispatcher("footer.html").include(request, response);
 		out.close();
 	}

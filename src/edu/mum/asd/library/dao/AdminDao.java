@@ -6,13 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.mum.asd.library.model.Librarian;
-import edu.mum.asd.library.model.LibraryItem;
-import edu.mum.asd.library.model.UserRole;
+import edu.mum.asd.library.model.Admin;
 
-public class LibrarianDao implements IDAO{
-
-	public static int save(Librarian bean) {
+public class AdminDao {
+	public static int save(Admin bean) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -36,11 +33,9 @@ public class LibrarianDao implements IDAO{
 		return status;
 	}
 
-	public static int update(Librarian bean,long id) {
+	public static int update(Admin bean) {
 		int status = 0;
 		try {
-//			System.out.println("inside update of librarian");
-//			System.out.println("librarian's id ->"+ bean.getUserId());
 			Connection con = DB.getCon();
 			PreparedStatement ps = con
 					.prepareStatement("update user set firstname=?, lastname=?, email=?, phone=?, password=?, address=? where userid=?");
@@ -50,7 +45,7 @@ public class LibrarianDao implements IDAO{
 			ps.setString(4, bean.getPhone());
 			ps.setString(5, bean.getPassword());
 			ps.setString(6, bean.getAddress());
-			ps.setLong(7, id);
+			ps.setString(7, bean.getRole().toString());
 			
 			status = ps.executeUpdate();
 			con.close();
@@ -62,14 +57,14 @@ public class LibrarianDao implements IDAO{
 		return status;
 	}
 
-	public static List<Librarian> view() {
-		List<Librarian> list = new ArrayList<Librarian>();
+	public static List<Admin> view() {
+		List<Admin> list = new ArrayList<Admin>();
 		try {
 			Connection con = DB.getCon();
-			PreparedStatement ps = con.prepareStatement("select * from user where role = 'LIBRARIAN' ");
+			PreparedStatement ps = con.prepareStatement("select * from user");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Librarian bean = new Librarian();
+				Admin bean = new Admin();
 				bean.setUserId(rs.getLong("userid"));
 				bean.setFirstName(rs.getString("firstname"));
 				bean.setLastName(rs.getString("lastname"));
@@ -88,11 +83,11 @@ public class LibrarianDao implements IDAO{
 		return list;
 	}
 
-	public static Librarian viewById(int id) {
-		Librarian bean = new Librarian();
+	public static Admin viewById(int id) {
+		Admin bean = new Admin();
 		try {
 			Connection con = DB.getCon();
-			PreparedStatement ps = con.prepareStatement("select * from user where userid=? and role = 'LIBRARIAN' ");
+			PreparedStatement ps = con.prepareStatement("select * from user where id=? and role = 'ADMIN' ");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -117,9 +112,8 @@ public class LibrarianDao implements IDAO{
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
-			PreparedStatement ps = con.prepareStatement("delete from user where userid=? and role = ?");
+			PreparedStatement ps = con.prepareStatement("delete from user where id=?");
 			ps.setInt(1, id);
-			ps.setString(2, UserRole.LIBRARIAN.toString());
 			status = ps.executeUpdate();
 			con.close();
 
@@ -134,10 +128,9 @@ public class LibrarianDao implements IDAO{
 		boolean status = false;
 		try {
 			Connection con = DB.getCon();
-			PreparedStatement ps = con.prepareStatement("select * from user where email=? and password=? and role = ?");
+			PreparedStatement ps = con.prepareStatement("select * from user where email=? and password=?");
 			ps.setString(1, email);
 			ps.setString(2, password);
-			ps.setString(3, UserRole.LIBRARIAN.toString());
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				status = true;
@@ -149,11 +142,5 @@ public class LibrarianDao implements IDAO{
 		}
 
 		return status;
-	}
-
-	@Override
-	public int save(LibraryItem bean) {
-		Librarian librarian=(Librarian)bean;
-		return save(librarian);
 	}
 }

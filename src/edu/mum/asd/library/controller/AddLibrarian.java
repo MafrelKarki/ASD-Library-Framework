@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.mum.asd.library.dao.LibrarianDao;
-import edu.mum.asd.library.model.LibrarianModel;
+import edu.mum.asd.library.model.Librarian;
 @WebServlet("/AddLibrarian")
 public class AddLibrarian extends HttpServlet {
 	
@@ -35,13 +34,15 @@ public class AddLibrarian extends HttpServlet {
 		request.getRequestDispatcher("navadmin.html").include(request, response);
 		out.println("<div class='container'>");
 		
-		String name=request.getParameter("name");
-		String email=request.getParameter("email");
-		String password=request.getParameter("password");
-		String smobile=request.getParameter("mobile");
-		long mobile=Long.parseLong(smobile);
-		LibrarianModel bean=new LibrarianModel(name, email, password, mobile);
-		LibrarianDao.save(bean);
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		String password = request.getParameter("password");
+		Librarian bean = new Librarian(firstName, lastName, email, phone, password, address);
+		FacadeSave facedSave = new FacadeSave();
+		facedSave.save(bean);
 		out.print("<h4>Librarian added successfully</h4>");
 		request.getRequestDispatcher("addlibrarianform.html").include(request, response);
 		

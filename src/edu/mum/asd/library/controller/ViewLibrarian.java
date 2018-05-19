@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.LibrarianDao;
-import edu.mum.asd.library.model.LibrarianModel;
+import edu.mum.asd.library.model.Librarian;
 
 @WebServlet("/ViewLibrarian")
 public class ViewLibrarian extends HttpServlet {
@@ -34,19 +34,26 @@ public class ViewLibrarian extends HttpServlet {
 		request.getRequestDispatcher("navadmin.html").include(request, response);
 		out.println("<div class='container'>");
 
-		List<LibrarianModel> list = LibrarianDao.view();
-
+		List<Librarian> list=LibrarianDao.view();
+		out.println("<div class='panel panel-default'>");
+		out.println("<div class='panel-heading'>Librarians</div>");
+		out.println("<div class='panel-body'>");
 		out.println("<table class='table table-bordered table-striped'>");
-		out.println(
-				"<tr><th>Id</th><th>Name</th><th>Email</th><th>Password</th><th>Mobile</th><th>Edit</th><th>Delete</th></tr>");
-		for (LibrarianModel bean : list) {
-			out.println("<tr><td>" + bean.getId() + "</td><td>" + bean.getName() + "</td><td>" + bean.getEmail()
-					+ "</td><td>" + bean.getPassword() + "</td><td>" + bean.getMobile()
-					+ "</td><td><a href='EditLibrarianForm?id=" + bean.getId()
-					+ "'>Edit</a></td><td><a href='DeleteLibrarian?id=" + bean.getId() + "'>Delete</a></td></tr>");
+		out.println("<tr><th>Id</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone Number</th><th>Address</th><th>Edit</th><th>Delete</th></tr>");
+		for(Librarian bean:list){
+			out.println("<tr>"
+					+ "<td>"+bean.getUserId()+"</td>"
+					+ "<td>"+bean.getFirstName()+"</td>"
+					+ "<td>"+bean.getLastName()+"</td>"
+					+ "<td>"+bean.getEmail()+"</td>"
+					+ "<td>"+bean.getPhone()+"</td>"
+					+ "<td>"+bean.getAddress()+"</td>"
+					+ "<td><a href='EditLibrarianForm?id="+bean.getUserId()+"'>Edit</a></td>"
+					+ "<td><a href='DeleteLibrarian?id="+bean.getUserId()+"'>Delete</a></td></tr>");
 		}
 		out.println("</table>");
-
+		out.println("</div>");
+		out.println("</div>");
 		out.println("</div>");
 		request.getRequestDispatcher("footer.html").include(request, response);
 		out.close();

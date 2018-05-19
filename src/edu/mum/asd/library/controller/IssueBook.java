@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.mum.asd.library.dao.BookDao;
-import edu.mum.asd.library.model.IssueBookModel;
+import edu.mum.asd.library.dao.StudentDao;
+import edu.mum.asd.library.model.Loan;
+import edu.mum.asd.library.model.Student;
 
 @WebServlet("/IssueBook")
 public class IssueBook extends HttpServlet {
@@ -34,14 +35,20 @@ public class IssueBook extends HttpServlet {
 		request.getRequestDispatcher("navlibrarian.html").include(request, response);
 
 		out.println("<div class='container'>");
+		
 		String callno = request.getParameter("callno");
 		String studentid = request.getParameter("studentid");
-		String studentname = request.getParameter("studentname");
-		String sstudentmobile = request.getParameter("studentmobile");
-		long studentmobile = Long.parseLong(sstudentmobile);
+		
+		System.out.println("call number = "+callno);
+		System.out.println("studend id = "+studentid);
+		
+		Student student = StudentDao.viewById(Integer.parseInt(studentid));
 
-		IssueBookModel bean = new IssueBookModel(callno, studentid, studentname, studentmobile);
-		int i = BookDao.issueBook(bean);
+		Loan bean = new Loan(callno, student);
+		
+		IssueReturnCommand issueReturnCommand=new ProceedIssueCommand();
+		int i=issueReturnCommand.executeIssue(bean);
+
 		if (i > 0) {
 			out.println("<h3>Book issued successfully</h3>");
 		} else {

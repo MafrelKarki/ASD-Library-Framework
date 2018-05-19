@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.LibrarianDao;
-import edu.mum.asd.library.model.LibrarianModel;
+import edu.mum.asd.library.model.Librarian;
 
 @WebServlet("/EditLibrarianForm")
 public class EditLibrarianForm extends HttpServlet {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,30 +37,54 @@ public class EditLibrarianForm extends HttpServlet {
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
 
-		LibrarianModel bean = LibrarianDao.viewById(id);
+		Librarian bean = LibrarianDao.viewById(id);
 
 		out.print("<form action='EditLibrarian' method='post' style='width:300px'>");
+
 		out.print("<div class='form-group'>");
-		out.print("<input type='hidden' name='id' value='" + bean.getId() + "'/>");
-		out.print("<label for='name1'>Name</label>");
-		out.print("<input type='text' class='form-control' value='" + bean.getName()
-				+ "' name='name' id='name1' placeholder='Name'/>");
+		out.print("<input type='hidden' name='id' value='" + bean.getUserId() + "'/>");
+		out.print("<label for='name1'>First Name</label>");
+		out.print("<input type='text' class='form-control' value='" + bean.getFirstName()
+				+ "' name='firstName' id='firstName' placeholder='First Name'/>");
 		out.print("</div>");
+
 		out.print("<div class='form-group'>");
-		out.print("<label for='email1'>Email address</label>");
+		out.print("<label for='lastName'>Last Name</label>");
+		out.print("<input type='text' class='form-control' value='" + bean.getLastName()
+				+ "'  name='lastName' id='lastName' placeholder='Last Name'/>");
+		out.print("</div>");
+
+		out.print("<div class='form-group'>");
+		out.print("<label for='email'>Email</label>");
 		out.print("<input type='email' class='form-control' value='" + bean.getEmail()
-				+ "'  name='email' id='email1' placeholder='Email'/>");
+				+ "'  name='email' id='email' placeholder='Email'/>");
 		out.print("</div>");
+
+		// out.print("<div class='form-group'>");
+		// out.print("<label for='password1'>Password</label>");
+		// out.print("<input type='password' class='form-control' value='" +
+		// bean.getPassword()
+		// + "' name='password' id='password1' placeholder='Password'/>");
+		// out.print("</div> ");
+
 		out.print("<div class='form-group'>");
-		out.print("<label for='password1'>Password</label>");
+		out.print("<label for='phone'>Phone Number</label>");
+		out.print("<input type='number' class='form-control' value='" + bean.getPhone()
+				+ "'  name='phone' id='phone' placeholder='Mobile'/>");
+		out.print("</div>");
+
+		out.print("<div class='form-group'>");
+		out.print("<label for='address'>Address</label>");
+		out.print("<input type='address' class='form-control' value='" + bean.getAddress()
+				+ "'  name='address' id='address' placeholder='Address'/>");
+		out.print("</div>");
+
+		out.print("<div class='form-group'>");
+		out.print("<label for='password'>Password</label>");
 		out.print("<input type='password' class='form-control' value='" + bean.getPassword()
-				+ "'  name='password' id='password1' placeholder='Password'/>");
-		out.print("</div>  ");
-		out.print("<div class='form-group'>");
-		out.print("<label for='mobile1'>Mobile Number</label>");
-		out.print("<input type='number' class='form-control' value='" + bean.getMobile()
-				+ "'  name='mobile' id='mobile1' placeholder='Mobile'/>");
+				+ "'  name='password' id='password' placeholder='Password'/>");
 		out.print("</div>");
+
 		out.print("<button type='submit' class='btn btn-primary'>Update</button>");
 		out.print("</form>");
 

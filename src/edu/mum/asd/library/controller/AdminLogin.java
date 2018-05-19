@@ -31,6 +31,7 @@ public class AdminLogin extends HttpServlet {
 		
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
+		System.out.println(email+" "+password);
 		if(email.equals("admin@jtp.com")&&password.equals("admin123")){
 			HttpSession session=request.getSession();
 			session.setAttribute("admin","true");

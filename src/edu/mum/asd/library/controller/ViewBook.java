@@ -1,5 +1,6 @@
 package edu.mum.asd.library.controller;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -11,17 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.BookDao;
-import edu.mum.asd.library.model.BookModel;
-
+import edu.mum.asd.library.model.Book;
 @WebServlet("/ViewBook")
 public class ViewBook extends HttpServlet {
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-
+		PrintWriter out=response.getWriter();
+		
 		out.print("<!DOCTYPE html>");
 		out.print("<html>");
 		out.println("<head>");
@@ -30,24 +32,21 @@ public class ViewBook extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		request.getRequestDispatcher("navlibrarian.html").include(request, response);
-
+		
 		out.println("<div class='container'>");
-
-		List<BookModel> list = BookDao.view();
-
+		
+		List<Book> list=BookDao.view();
+		
 		out.println("<table class='table table-bordered table-striped'>");
-		out.println(
-				"<tr><th>Callno</th><th>Name</th><th>Author</th><th>Publisher</th><th>Quantity</th><th>Issued</th><th>Delete</th></tr>");
-		for (BookModel bean : list) {
-			out.println("<tr><td>" + bean.getCallno() + "</td><td>" + bean.getName() + "</td><td>" + bean.getAuthor()
-					+ "</td><td>" + bean.getPublisher() + "</td><td>" + bean.getQuantity() + "</td><td>"
-					+ bean.getIssued() + "</td><td><a href='DeleteBook?callno=" + bean.getCallno()
-					+ "'>Delete</a></td></tr>");
+		out.println("<tr><th>Callno</th><th>Name</th><th>Author</th><th>Publisher</th><th>Quantity</th><th>Issued</th><th>Delete</th></tr>");
+		for(Book bean:list){
+			out.println("<tr><td>"+bean.getCallno()+"</td><td>"+bean.getName()+"</td><td>"+bean.getAuthor()+"</td><td>"+bean.getPublisher()+"</td><td>"+bean.getQuantity()+"</td><td>"+bean.getIssued()+"</td><td><a href='DeleteBook?callno="+bean.getCallno()+"'>Delete</a></td></tr>");
 		}
 		out.println("</table>");
-
+		
 		out.println("</div>");
-
+		
+		
 		request.getRequestDispatcher("footer.html").include(request, response);
 		out.close();
 	}

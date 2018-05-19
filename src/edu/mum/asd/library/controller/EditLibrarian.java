@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.LibrarianDao;
-import edu.mum.asd.library.model.LibrarianModel;
+import edu.mum.asd.library.model.Librarian;
 
 @WebServlet("/EditLibrarian")
 public class EditLibrarian extends HttpServlet {
@@ -19,13 +19,14 @@ public class EditLibrarian extends HttpServlet {
 			throws ServletException, IOException {
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
-		String name = request.getParameter("name");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
 		String password = request.getParameter("password");
-		String smobile = request.getParameter("mobile");
-		long mobile = Long.parseLong(smobile);
-		LibrarianModel bean = new LibrarianModel(id, name, email, password, mobile);
-		LibrarianDao.update(bean);
+		Librarian bean = new Librarian(firstName, lastName, email, phone, password, address);
+		LibrarianDao.update(bean,id);
 		response.sendRedirect("ViewLibrarian");
 	}
 
