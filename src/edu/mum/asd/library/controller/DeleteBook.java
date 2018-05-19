@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.BookDao;
+import edu.mum.asd.library.dao.IDAO;
 
 @WebServlet("/DeleteBook")
 public class DeleteBook extends HttpServlet {
@@ -16,7 +17,9 @@ public class DeleteBook extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BookDao.delete(request.getParameter("callno"));
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO bookdao=idaofaccotry.getIDAO("BookDao");
+		bookdao.delete(request.getParameter("callno"));
 		response.sendRedirect("ViewBook");
 	}
 }

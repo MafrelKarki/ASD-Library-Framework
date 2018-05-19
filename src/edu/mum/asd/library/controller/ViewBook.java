@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.BookDao;
+import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.model.Book;
 @WebServlet("/ViewBook")
 public class ViewBook extends HttpServlet {
@@ -34,8 +35,9 @@ public class ViewBook extends HttpServlet {
 		request.getRequestDispatcher("navlibrarian.html").include(request, response);
 		
 		out.println("<div class='container'>");
-		
-		List<Book> list=BookDao.view();
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO bookDao=idaofaccotry.getIDAO("BookDao");
+		List<Book> list=bookDao.viewBook();
 		
 		out.println("<table class='table table-bordered table-striped'>");
 		out.println("<tr><th>Callno</th><th>Name</th><th>Author</th><th>Publisher</th><th>Quantity</th><th>Issued</th><th>Delete</th></tr>");

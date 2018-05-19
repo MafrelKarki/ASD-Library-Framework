@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.dao.LibrarianDao;
 import edu.mum.asd.library.model.Librarian;
 
@@ -26,7 +27,9 @@ public class EditLibrarian extends HttpServlet {
 		String address = request.getParameter("address");
 		String password = request.getParameter("password");
 		Librarian bean = new Librarian(firstName, lastName, email, phone, password, address);
-		LibrarianDao.update(bean,id);
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO librarian=idaofaccotry.getIDAO("Librarian");
+		librarian.update(bean,id);
 		response.sendRedirect("ViewLibrarian");
 	}
 

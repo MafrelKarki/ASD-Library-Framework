@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.mum.asd.library.model.Book;
+import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.Loan;
 import edu.mum.asd.library.model.Student;
 
 public class BookDao implements IDAO {
 
-	public static int save(Book bean) {
+	public  int save(Book bean) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -34,7 +35,7 @@ public class BookDao implements IDAO {
 		return status;
 	}
 
-	public static List<Book> view() {
+	public  List<Book> view() {
 		List<Book> list = new ArrayList<Book>();
 		try {
 			Connection con = DB.getCon();
@@ -59,8 +60,8 @@ public class BookDao implements IDAO {
 
 		return list;
 	}
-
-	public static int delete(String callno) {
+	@Override
+	public int delete(String callno) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -75,8 +76,8 @@ public class BookDao implements IDAO {
 
 		return status;
 	}
-
-	public static int getIssued(String callno) {
+	@Override
+	public  int getIssued(String callno) {
 		int issued = 0;
 		try {
 			Connection con = DB.getCon();
@@ -94,8 +95,8 @@ public class BookDao implements IDAO {
 
 		return issued;
 	}
-
-	public static boolean checkIssue(String callno) {
+	@Override
+	public  boolean checkIssue(String callno) {
 		boolean status = false;
 		try {
 			Connection con = DB.getCon();
@@ -113,8 +114,8 @@ public class BookDao implements IDAO {
 
 		return status;
 	}
-
-	public static int issueBook(Loan bean) {
+	@Override
+	public  int issueBook(Loan bean) {
 		System.out.println("inside issue book method");
 		System.out.println("loan details");
 
@@ -162,8 +163,8 @@ public class BookDao implements IDAO {
 			return 0;
 		}
 	}
-
-	public static int returnBook(String callno, int studentid) {
+	@Override
+	public int returnBook(String callno, int studentid) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -187,8 +188,8 @@ public class BookDao implements IDAO {
 
 		return status;
 	}
-
-	public static List<Loan> viewIssuedBooks() {
+	@Override
+	public List<Loan> viewIssuedBooks() {
 		List<Loan> list = new ArrayList<Loan>();
 		try {
 			Connection con = DB.getCon();
@@ -220,5 +221,51 @@ public class BookDao implements IDAO {
 	public int save(LibraryItem bean) {
 		Book bookModel = (Book) bean;
 		return save(bookModel);
+	}
+
+	@Override
+	public List<Book> viewBook() {
+		// TODO Auto-generated method stub
+		return view();
+	}
+
+	@Override
+	public List<Librarian> viewLibraians() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	@Override
+	public int delete(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+		
+
+	@Override
+	public int update(LibraryItem bean) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public LibraryItem viewById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean authenticate(String email, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int update(Librarian bean, long id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
