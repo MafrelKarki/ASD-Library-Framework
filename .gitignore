@@ -5,7 +5,7 @@
 /target/
 */target/**
 */target/*
-/src/edu/mum/asd/library/dao/DB.java
+DB.java
 .settings/
 
 # Log file
