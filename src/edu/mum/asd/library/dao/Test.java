@@ -51,7 +51,7 @@ public class Test {
 		//LibrarianDao libDao = new LibrarianDao();
 		LibrarianDao librarianDao = new LibrarianDao();
 		ArrayList<Librarian> libs = new ArrayList<Librarian>();
-		libs = (ArrayList<Librarian>) LibrarianDao.view();
+		libs = (ArrayList<Librarian>) librarianDao.view();
 		for(Librarian lib : libs) {
 			System.out.println(lib.getFirstName());
 		}
