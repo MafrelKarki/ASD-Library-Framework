@@ -8,6 +8,14 @@
 <body>
 
 	<nav class="navbar navbar-default bg-primary">
+
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			style="float: right; margin-top: 10px;" data-target="#exampleModal">Register
+			as a Student</button>
+
+
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -21,6 +29,7 @@
 				<div>
 					<img src="images/iconLibrary.png" width="200px" height="50px">
 				</div>
+
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,7 +73,7 @@
 					<button type="submit" class="btn btn-primary">Login</button>
 				</form>
 			</div>
-			
+
 			<div class="col-md-4">
 				<h3>Student Login</h3>
 				<form action="StudentLogin" method="post" style="width: 300px">
@@ -80,11 +89,64 @@
 					<button type="submit" class="btn btn-primary">Login</button>
 				</form>
 			</div>
-			
+
 		</div>
 	</div>
 
-
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Student
+						Registration</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="RegisterStudent" method="post" style="width: 100%">
+						<div class="form-group">
+							<label for="firstName">First Name</label> <input type="text"
+								class="form-control" name="firstName" id="firstName"
+								placeholder="First Name" />
+						</div>
+						<div class="form-group">
+							<label for="lastName">Last Name</label> <input type="text"
+								class="form-control" name="lastName" id="lastName"
+								placeholder="Last Name" />
+						</div>
+						<div class="form-group">
+							<label for="email1">Email address</label> <input type="email"
+								class="form-control" name="email" id="email1"
+								placeholder="Email" />
+						</div>
+						<div class="form-group">
+							<label for="phone">Phone Number</label> <input type="number"
+								class="form-control" name="phone" id="phone"
+								placeholder="Mobile Number" />
+						</div>
+						<div class="form-group">
+							<label for="address">Address</label> <input type="text"
+								class="form-control" name="address" id="address"
+								placeholder="Address" />
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password"
+								class="form-control" name="password" id="password"
+								placeholder="Password" />
+						</div>
+						<button type="submit" class="btn btn-primary">Register</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<script src="jquery.min.js"></script>

@@ -1,7 +1,13 @@
 package edu.mum.asd.library.model;
 
+
 import java.util.Calendar;
 import java.util.Date;
+
+import java.util.Date;
+
+import org.apache.commons.lang3.time.DateUtils;
+
 
 public class Loan {
 	private String callNo;
@@ -40,20 +46,24 @@ public class Loan {
 		this.student = student;
 	}
 	
+	
 	public Loan(String callNo, Student student) {
 		super();
+		Date newDate = DateUtils.addMonths(new Date(), 1);
+		
 		this.callNo = callNo;
 		this.issuedDate = new Date();
+
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(issuedDate); 
 		c.add(Calendar.MONTH, +1);		 
 		this.returnDate =c.getTime();
+		this.returnDate = newDate;
 		this.returnStatus = "no";
 		this.student = student;
 	}
 	public Loan() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

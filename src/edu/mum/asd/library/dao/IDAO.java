@@ -6,20 +6,27 @@ import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.Loan;
+import edu.mum.asd.library.model.Student;
 
 public interface IDAO {
 	public int save(LibraryItem bean);
+	public int save(Student bean);
+	
 	public List<Book> viewBook(); 
 	public List<Librarian> viewLibraians();
+	public  List<Loan> viewIssuedBooks();
+	public List<Student> viewStudents();
+	
 	public int delete(String callno);
 	public  int delete(int id);
+	
+	public  int update(LibraryItem bean);
+	public  int update(Librarian bean,long id);
+	
 	public int getIssued(String callno);
 	public boolean checkIssue(String callno);
 	public int issueBook(Loan  bean);
 	public int returnBook(String callno,int studentid);
-	public  List<Loan> viewIssuedBooks();
-	public  int update(LibraryItem bean);
-	public  int update(Librarian bean,long id);
 	public  LibraryItem viewById(int id);
 	public boolean authenticate(String email,String password);
 	/*public List<BookModel> viewBook();

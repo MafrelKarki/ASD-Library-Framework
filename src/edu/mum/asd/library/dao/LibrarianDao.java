@@ -6,15 +6,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.LibraryUserBuilder;
+import edu.mum.asd.library.model.Loan;
+import edu.mum.asd.library.model.Student;
 import edu.mum.asd.library.model.UserBuilder;
 import edu.mum.asd.library.model.UserDirector;
-import edu.mum.asd.library.model.Loan;
 import edu.mum.asd.library.model.UserRole;
 
 public class LibrarianDao implements IDAO{
@@ -240,6 +239,18 @@ public class LibrarianDao implements IDAO{
 
 	@Override
 	public List<Book> viewBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int save(Student bean) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Student> viewStudents() {
 		// TODO Auto-generated method stub
 		return null;
 	}
