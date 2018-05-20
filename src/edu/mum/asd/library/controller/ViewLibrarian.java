@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.dao.LibrarianDao;
 import edu.mum.asd.library.model.Librarian;
 
@@ -33,8 +34,9 @@ public class ViewLibrarian extends HttpServlet {
 
 		request.getRequestDispatcher("navadmin.html").include(request, response);
 		out.println("<div class='container'>");
-
-		List<Librarian> list=LibrarianDao.view();
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO librarian=idaofaccotry.getIDAO("librarian");
+		List<Librarian> list=librarian.viewLibraians();
 		out.println("<div class='panel panel-default'>");
 		out.println("<div class='panel-heading'>Librarians</div>");
 		out.println("<div class='panel-body'>");

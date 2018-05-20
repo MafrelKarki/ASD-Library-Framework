@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.dao.LibrarianDao;
 
 @WebServlet("/DeleteLibrarian")
@@ -18,7 +19,9 @@ public class DeleteLibrarian extends HttpServlet {
 			throws ServletException, IOException {
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
-		LibrarianDao.delete(id);
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO librarian=idaofaccotry.getIDAO("Librarian");
+		librarian.delete(id);
 		response.sendRedirect("ViewLibrarian");
 	}
 }

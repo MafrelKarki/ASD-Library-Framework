@@ -6,18 +6,19 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.LibraryUserBuilder;
 import edu.mum.asd.library.model.UserBuilder;
 import edu.mum.asd.library.model.UserDirector;
+import edu.mum.asd.library.model.Loan;
 import edu.mum.asd.library.model.UserRole;
 
 public class LibrarianDao implements IDAO{
 
 	
-	
-	public static int save(Librarian bean) {
+	public  int save(Librarian bean) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -41,7 +42,7 @@ public class LibrarianDao implements IDAO{
 		return status;
 	}
 
-	public static int update(Librarian bean,long id) {
+	public  int update(Librarian bean,long id) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -65,7 +66,7 @@ public class LibrarianDao implements IDAO{
 		return status;
 	}
 
-	public static List<Librarian> view() {
+	public  List<Librarian> view() {
 		List<Librarian> list = new ArrayList<Librarian>();
 		try {
 			Connection con = DB.getCon();
@@ -100,8 +101,8 @@ public class LibrarianDao implements IDAO{
 		return list;
 	}
 
-	public static Librarian viewById(int id) {
-		Librarian bean = null;
+	public  Librarian viewById(int id) {
+		Librarian bean = new Librarian();
 		try {
 			Connection con = DB.getCon();
 			PreparedStatement ps = con.prepareStatement("select * from user where userid=? and role = 'LIBRARIAN' ");
@@ -136,7 +137,7 @@ public class LibrarianDao implements IDAO{
 		return bean;
 	}
 
-	public static int delete(int id) {
+	public  int delete(int id) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -153,7 +154,8 @@ public class LibrarianDao implements IDAO{
 		return status;
 	}
 
-	public static boolean authenticate(String email, String password) {
+	@Override
+	public  boolean authenticate(String email, String password) {
 		boolean status = false;
 		try {
 			Connection con = DB.getCon();
@@ -178,5 +180,61 @@ public class LibrarianDao implements IDAO{
 	public int save(LibraryItem bean) {
 		Librarian librarian=(Librarian)bean;
 		return save(librarian);
+	}
+	@Override
+	public int update(LibraryItem bean) {
+		Librarian librarian=(Librarian)bean;
+		
+		return update(librarian);
+	}
+
+	@Override
+	public List<Librarian> viewLibraians() {
+		// TODO Auto-generated method stub
+		return view();
+	}
+
+	@Override
+	public int delete(String callno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getIssued(String callno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean checkIssue(String callno) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int issueBook(Loan bean) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int returnBook(String callno, int studentid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Loan> viewIssuedBooks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	@Override
+	public List<Book> viewBook() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

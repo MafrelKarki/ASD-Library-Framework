@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.dao.LibrarianDao;
 import edu.mum.asd.library.model.Librarian;
 
@@ -36,8 +37,10 @@ public class EditLibrarianForm extends HttpServlet {
 		out.println("<div class='container'>");
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO librarian=idaofaccotry.getIDAO("Librarian");
 
-		Librarian bean = LibrarianDao.viewById(id);
+		Librarian bean = (Librarian) librarian.viewById(id);
 
 		out.print("<form action='EditLibrarian' method='post' style='width:300px'>");
 

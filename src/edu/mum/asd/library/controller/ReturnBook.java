@@ -35,7 +35,10 @@ public class ReturnBook extends HttpServlet {
 		String sstudentid = request.getParameter("studentid");
 		int studentid = Integer.parseInt(sstudentid);
 
-		int i = BookDao.returnBook(callno, studentid);
+		IssueReturnCommand issueReturnCommand=new CancelIssues();
+		int i=issueReturnCommand.executeReturn(callno, studentid);
+		
+//		int i = BookDao.returnBook(callno, studentid);
 		if (i > 0) {
 			out.println("<h3>Book returned successfully</h3>");
 		} else {

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.dao.LibrarianDao;
 
 @WebServlet("/LibrarianLogin")
@@ -31,7 +32,9 @@ public class LibrarianLogin extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		if (LibrarianDao.authenticate(email, password)) {
+		DAOFactory idaofaccotry=new DAOFactory();
+		IDAO librarian=idaofaccotry.getIDAO("Librarian");
+		if (librarian.authenticate(email, password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 
