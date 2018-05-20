@@ -1,6 +1,8 @@
 package edu.mum.asd.library.model;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.apache.commons.lang3.time.DateUtils;
 
 public class Loan {
 	private String callNo;
@@ -39,17 +41,19 @@ public class Loan {
 		this.student = student;
 	}
 	
+	
 	public Loan(String callNo, Student student) {
 		super();
+		Date newDate = DateUtils.addMonths(new Date(), 1);
+		
 		this.callNo = callNo;
-		this.issuedDate = new Date(0);
-		this.returnDate = null;
+		this.issuedDate = new Date();
+		this.returnDate = newDate;
 		this.returnStatus = "no";
 		this.student = student;
 	}
 	public Loan() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

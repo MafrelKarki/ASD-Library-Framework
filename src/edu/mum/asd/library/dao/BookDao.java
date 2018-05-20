@@ -1,6 +1,7 @@
 package edu.mum.asd.library.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -136,8 +137,8 @@ public class BookDao implements IDAO {
 				ps.setString(1, bean.getCallNo());
 				ps.setLong(2, bean.getStudent().getUserId());
 
-				ps.setDate(3, bean.getIssuedDate());
-				ps.setDate(4, bean.getReturnDate());
+				ps.setDate(3, (Date) bean.getIssuedDate());
+				ps.setDate(4, (Date) bean.getReturnDate());
 				ps.setString(5, bean.getReturnStatus());
 				// java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 				// ps.setDate(5, currentDate);
@@ -201,7 +202,9 @@ public class BookDao implements IDAO {
 				bean.setIssuedDate(rs.getDate("issuedate"));
 				bean.setReturnDate(rs.getDate("returnDate"));
 				bean.setReturnStatus(rs.getString("isreturned"));
-				Student student = StudentDao.viewById((int) rs.getLong("studentid"));
+				
+				
+				Student student = (Student) new StudentDao().viewById((int) rs.getLong("studentid"));
 
 				// needs to be added after implementing find student by id method in dao
 				bean.setStudent(student);
@@ -267,5 +270,17 @@ public class BookDao implements IDAO {
 	public int update(Librarian bean, long id) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int save(Student bean) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Student> viewStudents() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

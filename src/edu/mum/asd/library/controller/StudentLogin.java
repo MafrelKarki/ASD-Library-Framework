@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.mum.asd.library.dao.IDAO;
+
 @WebServlet("/StudentLogin")
 public class StudentLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +19,7 @@ public class StudentLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("inside student login do post method");
+//		System.out.println("inside student login do post method");
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -32,8 +34,12 @@ public class StudentLogin extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-//		if (LibrarianDao.authenticate(email, password)) {
-		if(email.equals("student@mail.com")&&password.equals("student")){
+		
+		DAOFactory idaofactory=new DAOFactory();
+		IDAO student=idaofactory.getIDAO("Student");
+		
+		if (student.authenticate(email, password)) {
+//		if(email.equals("student@mail.com")&&password.equals("student")){
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 

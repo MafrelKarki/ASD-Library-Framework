@@ -32,8 +32,8 @@ public class LibrarianLogin extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		DAOFactory idaofaccotry=new DAOFactory();
-		IDAO librarian=idaofaccotry.getIDAO("Librarian");
+		DAOFactory idaofactory=new DAOFactory();
+		IDAO librarian=idaofactory.getIDAO("Librarian");
 		if (librarian.authenticate(email, password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
