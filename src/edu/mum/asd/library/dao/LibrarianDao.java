@@ -254,4 +254,16 @@ public class LibrarianDao implements IDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Loan getLoanedBook(String calno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Book getBook(String calno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

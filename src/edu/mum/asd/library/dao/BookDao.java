@@ -142,8 +142,8 @@ public class BookDao implements IDAO {
 				ps.setDate(3, new java.sql.Date(bean.getIssuedDate().getTime()));
 				ps.setDate(4, new java.sql.Date(bean.getReturnDate().getTime()));
 
-				ps.setDate(3, (Date) bean.getIssuedDate());
-				ps.setDate(4, (Date) bean.getReturnDate());
+				/*ps.setDate(3, (Date) bean.getIssuedDate());
+				ps.setDate(4, (Date) bean.getReturnDate());*/
 
 				ps.setString(5, bean.getReturnStatus());
 				// java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
@@ -286,5 +286,53 @@ public class BookDao implements IDAO {
 	public List<Student> viewStudents() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Loan getLoanedBook(String callno) {
+		Loan bean = null;
+		try {
+			Connection con = DB.getCon();
+			PreparedStatement ps = con.prepareStatement("select * from loan where callno=?");
+			ps.setString(1, callno);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				bean=new Loan(); 
+				bean.setCallNo(rs.getString("callno"));
+				bean.setIssuedDate(rs.getDate("issuedate"));
+				bean.setReturnDate(rs.getDate("returnDate"));
+				bean.setReturnStatus(rs.getString("isreturned"));
+				Student student = new StudentDao().getStudentById((int) rs.getLong("studentid"));
+				bean.setStudent(student);
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return bean;
+	}
+
+	@Override
+	public Book getBook(String calno) {
+		Book bean=null;
+		try {
+			Connection con = DB.getCon();
+			PreparedStatement ps = con.prepareStatement("select * from e_book WHERE callno=?");
+			ps.setString(1, calno);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				bean = new Book();
+				bean.setCallno(rs.getString("callno"));
+				bean.setName(rs.getString("name"));
+				bean.setAuthor(rs.getString("author"));
+				bean.setPublisher(rs.getString("publisher"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setIssued(rs.getInt("issued"));
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return bean;
 	}
 }

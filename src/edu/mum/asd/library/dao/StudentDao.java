@@ -211,6 +211,19 @@ public class StudentDao implements IDAO {
 		return bean;
 	}
 
+	@Override
+	public Loan getLoanedBook(String calno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Book getBook(String calno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	// public static int save(Student bean) {
 	// int status = 0;
 	// try {
