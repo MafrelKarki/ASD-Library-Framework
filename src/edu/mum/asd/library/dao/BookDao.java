@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
@@ -137,8 +138,13 @@ public class BookDao implements IDAO {
 				ps.setString(1, bean.getCallNo());
 				ps.setLong(2, bean.getStudent().getUserId());
 
+
+				ps.setDate(3, new java.sql.Date(bean.getIssuedDate().getTime()));
+				ps.setDate(4, new java.sql.Date(bean.getReturnDate().getTime()));
+
 				ps.setDate(3, (Date) bean.getIssuedDate());
 				ps.setDate(4, (Date) bean.getReturnDate());
+
 				ps.setString(5, bean.getReturnStatus());
 				// java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 				// ps.setDate(5, currentDate);

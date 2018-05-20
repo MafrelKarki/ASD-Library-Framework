@@ -1,8 +1,13 @@
 package edu.mum.asd.library.model;
 
+
+import java.util.Calendar;
+import java.util.Date;
+
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
+
 
 public class Loan {
 	private String callNo;
@@ -48,6 +53,11 @@ public class Loan {
 		
 		this.callNo = callNo;
 		this.issuedDate = new Date();
+
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(issuedDate); 
+		c.add(Calendar.MONTH, +1);		 
+		this.returnDate =c.getTime();
 		this.returnDate = newDate;
 		this.returnStatus = "no";
 		this.student = student;
