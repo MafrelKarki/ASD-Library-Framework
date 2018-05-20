@@ -15,6 +15,8 @@ public interface IDAO {
 	public List<Book> viewBook(); 
 	public List<Librarian> viewLibraians();
 	public  List<Loan> viewIssuedBooks();
+	public Loan getLoanedBook(String calno);
+	public Book getBook(String calno);
 	public List<Student> viewStudents();
 	
 	public int delete(String callno);

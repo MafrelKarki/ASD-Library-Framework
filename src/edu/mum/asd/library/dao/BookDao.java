@@ -287,4 +287,52 @@ public class BookDao implements IDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Loan getLoanedBook(String callno) {
+		Loan bean = null;
+		try {
+			Connection con = DB.getCon();
+			PreparedStatement ps = con.prepareStatement("select * from loan where callno=?");
+			ps.setString(1, callno);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				bean=new Loan(); 
+				bean.setCallNo(rs.getString("callno"));
+				bean.setIssuedDate(rs.getDate("issuedate"));
+				bean.setReturnDate(rs.getDate("returnDate"));
+				bean.setReturnStatus(rs.getString("isreturned"));
+				Student student = new StudentDao().getStudentById((int) rs.getLong("studentid"));
+				bean.setStudent(student);
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return bean;
+	}
+
+	@Override
+	public Book getBook(String calno) {
+		Book bean=null;
+		try {
+			Connection con = DB.getCon();
+			PreparedStatement ps = con.prepareStatement("select * from e_book WHERE callno=?");
+			ps.setString(1, calno);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				bean = new Book();
+				bean.setCallno(rs.getString("callno"));
+				bean.setName(rs.getString("name"));
+				bean.setAuthor(rs.getString("author"));
+				bean.setPublisher(rs.getString("publisher"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setIssued(rs.getInt("issued"));
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return bean;
+	}
 }
