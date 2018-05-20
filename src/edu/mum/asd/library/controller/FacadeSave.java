@@ -9,7 +9,7 @@ import edu.mum.asd.library.model.Librarian;
 
 /**
  * @author Binyam
- * @purpose implementing factory method for DAO
+ * @purpose implementing facade design pattern for Saving Librarian and book
  */
 public class FacadeSave {
 	private IDAO bookIDAO;

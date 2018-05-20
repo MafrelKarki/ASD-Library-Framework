@@ -1,7 +1,5 @@
 package edu.mum.asd.library.model;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 /**
  * @author Mafrel
  * @purpose Implementing Builder Pattern to create the objects of user
@@ -32,8 +30,9 @@ public class LibraryUserBuilder implements UserBuilder {
 
 	@Override
 	public void buildPassword(String password) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		librarian.setPassword(passwordEncoder.encode(password));
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		librarian.setPassword(passwordEncoder.encode(password));
+		librarian.setPassword(password);
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import edu.mum.asd.library.model.Student;
 
 public class StudentDao {
@@ -130,6 +132,10 @@ public class StudentDao {
 	public static boolean authenticate(String email, String password) {
 		boolean status = false;
 		try {
+			
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//			passwordEncoder.matches("mafrels", user.getPassword())
+			
 			Connection con = DB.getCon();
 			PreparedStatement ps = con.prepareStatement("select * from user where email=? and password=?");
 			ps.setString(1, email);
