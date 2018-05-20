@@ -6,6 +6,11 @@ import edu.mum.asd.library.dao.LibrarianDao;
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 
+
+/**
+ * @author Binyam
+ * @purpose implementing factory method for DAO
+ */
 public class FacadeSave {
 	private IDAO bookIDAO;
 	private IDAO libraryIDAO;
