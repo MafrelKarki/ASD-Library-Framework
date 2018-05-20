@@ -1,11 +1,10 @@
 package edu.mum.asd.library.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
@@ -110,7 +109,6 @@ public class StudentDao implements IDAO {
 
 	@Override
 	public LibraryItem viewById(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -174,6 +172,32 @@ public class StudentDao implements IDAO {
 		 return list;
 	}
 
+	public Student getStudentById(int id) {
+		Student bean = new Student();
+		try {
+			Connection con = DB.getCon();
+			PreparedStatement ps = con.prepareStatement("select * from user where userid=? and role = 'Student' ");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				bean.setUserId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setEmail(rs.getString(4));
+				bean.setPhone(rs.getString(5));
+				bean.setPassword(rs.getString(6));
+				bean.setAddress(rs.getString(7));
+			}
+			con.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return bean;
+	}
+
+	
 	// public static int save(Student bean) {
 	// int status = 0;
 	// try {

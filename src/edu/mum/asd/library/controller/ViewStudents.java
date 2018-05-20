@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mum.asd.library.dao.IDAO;
-import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.Student;
 
 @WebServlet("/ViewStudents")

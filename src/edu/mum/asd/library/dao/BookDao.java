@@ -201,10 +201,8 @@ public class BookDao implements IDAO {
 				bean.setCallNo(rs.getString("callno"));
 				bean.setIssuedDate(rs.getDate("issuedate"));
 				bean.setReturnDate(rs.getDate("returnDate"));
-				bean.setReturnStatus(rs.getString("isreturned"));
-				
-				
-				Student student = (Student) new StudentDao().viewById((int) rs.getLong("studentid"));
+				bean.setReturnStatus(rs.getString("isreturned"));				
+				Student student = (Student) new StudentDao().getStudentById((int) rs.getLong("studentid"));
 
 				// needs to be added after implementing find student by id method in dao
 				bean.setStudent(student);
