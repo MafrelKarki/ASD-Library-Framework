@@ -58,7 +58,7 @@ public class Loan {
 		c.setTime(issuedDate); 
 		c.add(Calendar.MONTH, +1);		 
 		this.returnDate =c.getTime();
-		this.returnDate = newDate;
+//		this.returnDate = newDate;
 		this.returnStatus = "no";
 		this.student = student;
 	}

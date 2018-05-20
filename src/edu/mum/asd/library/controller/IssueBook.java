@@ -42,7 +42,7 @@ public class IssueBook extends HttpServlet {
 		System.out.println("call number = "+callno);
 		System.out.println("studend id = "+studentid);
 		
-		Student student = (Student) new StudentDao().viewById(Integer.parseInt(studentid));
+		Student student = (Student) new StudentDao().getStudentById(Integer.parseInt(studentid));
 
 		Loan bean = new Loan(callno, student);
 		

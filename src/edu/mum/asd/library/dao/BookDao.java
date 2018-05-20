@@ -142,8 +142,8 @@ public class BookDao implements IDAO {
 				ps.setDate(3, new java.sql.Date(bean.getIssuedDate().getTime()));
 				ps.setDate(4, new java.sql.Date(bean.getReturnDate().getTime()));
 
-				ps.setDate(3, (Date) bean.getIssuedDate());
-				ps.setDate(4, (Date) bean.getReturnDate());
+				/*ps.setDate(3, (Date) bean.getIssuedDate());
+				ps.setDate(4, (Date) bean.getReturnDate());*/
 
 				ps.setString(5, bean.getReturnStatus());
 				// java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
