@@ -30,7 +30,7 @@ public class ViewStudents extends HttpServlet{
 		out.println("</head>");
 		out.println("<body>");
 
-		request.getRequestDispatcher("navadmin.html").include(request, response);
+		request.getRequestDispatcher("navlibrarian.html").include(request, response);
 		out.println("<div class='container'>");
 		DAOFactory idaofaccotry = new DAOFactory();
 		IDAO studentsDao = idaofaccotry.getIDAO("Student");
@@ -40,14 +40,19 @@ public class ViewStudents extends HttpServlet{
 		out.println("<div class='panel-body'>");
 		out.println("<table class='table table-bordered table-striped'>");
 		out.println(
-				"<tr><th>Id</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone Number</th><th>Address</th><th>Edit</th><th>Delete</th></tr>");
+				"<tr><th>Id</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone Number</th><th>Address</th><th>Delete</th></tr>");
 		for (Student bean : list) {
-			out.println("<tr>" + "<td>" + bean.getUserId() + "</td>" + "<td>" + bean.getFirstName() + "</td>" + "<td>"
-					+ bean.getLastName() + "</td>" + "<td>" + bean.getEmail() + "</td>" + "<td>" + bean.getPhone()
-					+ "</td>" + "<td>" + bean.getAddress() + "</td>" + "<td><a href='EditLibrarianForm?id="
-					+ bean.getUserId() + "'>Edit</a></td>" + "<td><a href='DeleteLibrarian?id=" + bean.getUserId()
-					+ "'>Delete</a></td></tr>");
+			out.println("<tr>" 
+					+ "<td>" + bean.getUserId() + "</td>" 
+					+ "<td>" + bean.getFirstName() + "</td>" 
+					+ "<td>" + bean.getLastName() + "</td>" 
+					+ "<td>" + bean.getEmail() + "</td>" 
+					+ "<td>" + bean.getPhone()+ "</td>" 
+					+ "<td>" + bean.getAddress() + "</td>" 
+					+ "<td><a href='DeleteStudent?id=" + bean.getUserId()+ "'>Delete</a></td>"
+					+ "</tr>");
 		}
+//		+ "<td><a href='EditLibrarianForm?id=" + bean.getUserId() + "'>Edit</a></td>" 
 		out.println("</table>");
 		out.println("</div>");
 		out.println("</div>");
