@@ -172,10 +172,41 @@ public class PaymentDao implements IDAO {
 		return null;
 	}
 
+
 	@Override
-	public boolean authenticate(String email, String password) {
+	public long authenticate(String email, String password) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void reserveBook(long studentId, String callno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Book findByCallno(String callno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean checkifUserReserved(long userid, String callno) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void updateBook(Book book) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String findCallNoByUserId(long userid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

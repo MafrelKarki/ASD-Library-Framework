@@ -35,7 +35,16 @@ public interface IDAO {
 	public int issueBook(Loan  bean);
 	public int returnBook(String callno);
 	public  LibraryItem viewById(int id);
-	public boolean authenticate(String email,String password);
+	public long authenticate(String email,String password);
+	
+	
+	//Methods required for reservation
+	public void reserveBook(long studentId, String callno);
+	public Book findByCallno(String callno);
+	public boolean checkifUserReserved(long userid, String callno);
+	public void updateBook(Book book);
+	public String findCallNoByUserId(long userid);
+	
 	/*public List<BookModel> viewBook();
 	public int delete(String callno);
 	public int getIssued(String callno);

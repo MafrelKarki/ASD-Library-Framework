@@ -33,7 +33,7 @@ public class LibrarianLogin extends HttpServlet {
 		String password = request.getParameter("password");
 		DAOFactory idaofactory = new DAOFactory();
 		IDAO librarian = idaofactory.getIDAO("Librarian");
-		if (librarian.authenticate(email, password)) {
+		if (librarian.authenticate(email, password) > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 
