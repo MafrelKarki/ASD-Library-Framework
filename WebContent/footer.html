@@ -1,5 +1,31 @@
-  
-  <script src="jquery.min.js"></script>
-  <script src="bootstrap.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#booksTable').DataTable();
+	    $("[data-callno]").click(function(){
+			var callno = $(this).attr("data-callno");
+			var userid = $(this).attr("data-userId");
+
+			/* alert(callno);
+			alert(userid); */
+
+			$.ajax({
+					"url": "ReserveBook",
+					"data":{"callno": callno, "userid": userid},
+					"method": "get",
+					"success": function(response){
+						window.location.reload();
+					},
+					"error": function(response){
+					}
+				});
+			
+	    });
+	} );
+
+	
+	
+	</script>
+
 </body>
 </html>

@@ -1,6 +1,5 @@
 package edu.mum.asd.library.controller;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,15 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 @WebServlet("/AdminLogin")
 public class AdminLogin extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		
+		PrintWriter out = response.getWriter();
+
 		out.print("<!DOCTYPE html>");
 		out.print("<html>");
 		out.println("<head>");
@@ -26,28 +27,27 @@ public class AdminLogin extends HttpServlet {
 		out.println("<link rel='stylesheet' href='bootstrap.min.css'/>");
 		out.println("</head>");
 		out.println("<body>");
-		
+
 		System.out.println("here");
-		
-		String email=request.getParameter("email");
-		String password=request.getParameter("password");
-		System.out.println(email+" "+password);
-		if(email.equals("admin@lms.com")&&password.equals("admin123")){
-			HttpSession session=request.getSession();
-			session.setAttribute("admin","true");
-			
+
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		System.out.println(email + " " + password);
+		if (email.equals("admin@mum.com") && password.equals("admin123")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("admin", "true");
+
 			request.getRequestDispatcher("navadmin.html").include(request, response);
 			request.getRequestDispatcher("admincarousel.html").include(request, response);
-			
-		}else{
+
+		} else {
 			request.getRequestDispatcher("navhome.html").include(request, response);
 			out.println("<div class='container'>");
 			out.println("<h3>Username or password error</h3>");
 			request.getRequestDispatcher("adminloginform.html").include(request, response);
 			out.println("</div>");
 		}
-		
-		
+
 		request.getRequestDispatcher("footer.html").include(request, response);
 		out.close();
 	}

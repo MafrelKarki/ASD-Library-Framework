@@ -10,14 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.BookIterator;
 import edu.mum.asd.library.model.BookStorage;
 
-@WebServlet("/ViewBook")
-public class ViewBook extends HttpServlet {
+@WebServlet("/ViewBookInStudent")
+public class ViewBookInStudent extends HttpServlet {
 	/**
 	 * 
 	 */
@@ -28,6 +29,8 @@ public class ViewBook extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
+		HttpSession session = request.getSession();
+		long userId = (long) session.getAttribute("userid");
 		
 		
 		out.print("<!DOCTYPE html>");
@@ -46,7 +49,7 @@ public class ViewBook extends HttpServlet {
 		
 		out.println("</head>");
 		out.println("<body>");
-		request.getRequestDispatcher("navlibrarian.html").include(request, response);
+		request.getRequestDispatcher("navstudent.html").include(request, response);
 
 		out.println("<div class='container'>");
 		// DAOFactory idaofaccotry=new DAOFactory();
@@ -58,6 +61,7 @@ public class ViewBook extends HttpServlet {
 		DAOFactory idaoFactory = new DAOFactory();
 		BookStorage bookStorage = new BookStorage();
 		IDAO bookDao = idaoFactory.getIDAO("BookDao");
+		IDAO reservationDao = idaoFactory.getIDAO("Reservation");
 		for (Book book : bookDao.viewBook()) {
 			bookStorage.addBook(book);
 		}
@@ -73,13 +77,34 @@ public class ViewBook extends HttpServlet {
 		out.println("<table class='table table-bordered table-striped' id='booksTable'>");
 		
 		out.println(
-				"<thead><tr><th>Callno</th><th>Name</th><th>Author</th><th>Publisher</th><th>Quantity</th><th>Issued</th><th>Delete</th></tr></thead>");
+				"<thead><tr><th>Callno</th><th>Name</th><th>Author</th><th>Publisher</th><th>Quantity</th><th>Issued</th><th>Reserve Book</th></tr></thead>");
 		out.println("<tbody>");
 		for (Book bean : list) {
-			out.println("<tr><td>" + bean.getCallno() + "</td><td>" + bean.getName() + "</td><td>" + bean.getAuthor()
-					+ "</td><td>" + bean.getPublisher() + "</td><td>" + bean.getQuantity() + "</td><td>"
-					+ bean.getIssued() + "</td><td><a href='DeleteBook?callno=" + bean.getCallno()
-					+ "'>Delete</a></td></tr>");
+			if(reservationDao.checkifUserReserved(userId, bean.getCallno()))
+			out.println("<tr>"
+					+ "<td>" + bean.getCallno() + "</td>"
+					+ "<td>" + bean.getName() + "</td>"
+					+ "<td>" + bean.getAuthor()+ "</td>"
+					+ "<td>" + bean.getPublisher() + "</td>"
+					+ "<td>" + bean.getQuantity() + "</td>"
+					+ "<td>"+ bean.getIssued() + "</td>"
+					+ "<td>"
+								+ "<button class='btn btn-success' id='reserveBook' data-callno="+bean.getCallno()+ " data-userId = "+userId+ ">Reserved</button>"
+					+ "</td>"
+				+ "</tr>");
+			
+			else
+				out.println("<tr>"
+						+ "<td>" + bean.getCallno() + "</td>"
+						+ "<td>" + bean.getName() + "</td>"
+						+ "<td>" + bean.getAuthor()+ "</td>"
+						+ "<td>" + bean.getPublisher() + "</td>"
+						+ "<td>" + bean.getQuantity() + "</td>"
+						+ "<td>"+ bean.getIssued() + "</td>"
+						+ "<td>"
+									+ "<button class='btn btn-danger' id='reserveBook' data-callno="+bean.getCallno()+ " data-userId = "+userId+ ">Reserve This</button>"
+						+ "</td>"
+					+ "</tr>");
 		}
 		out.println("</tbody>");
 		out.println("</table>");

@@ -126,8 +126,8 @@ public class StudentDao implements IDAO {
 	}
 
 	@Override
-	public boolean authenticate(String email, String password) {
-		boolean status = false;
+	public long authenticate(String email, String password) {
+		long status = 0;
 		try {
 
 			// BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -141,7 +141,8 @@ public class StudentDao implements IDAO {
 			ps.setString(3, UserRole.STUDENT.toString());
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				status = true;
+				status = rs.getLong("userid");
+//				status = true;
 			}
 			con.close();
 
@@ -210,6 +211,9 @@ public class StudentDao implements IDAO {
 
 		return bean;
 	}
+	
+	
+	
 
 	@Override
 	public Loan getLoanedBook(String calno) {
@@ -219,6 +223,36 @@ public class StudentDao implements IDAO {
 
 	@Override
 	public Book getBook(String calno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void reserveBook(long studentId, String callno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Book findByCallno(String callno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean checkifUserReserved(long userid, String callno) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void updateBook(Book book) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String findCallNoByUserId(long userid) {
 		// TODO Auto-generated method stub
 		return null;
 	}

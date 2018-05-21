@@ -7,16 +7,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.Loan;
+import edu.mum.asd.library.model.Reservation;
 import edu.mum.asd.library.model.Student;
 
 public class BookDao implements IDAO {
 
-	public  int save(Book bean) {
+	public int save(Book bean) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
@@ -37,7 +37,7 @@ public class BookDao implements IDAO {
 		return status;
 	}
 
-	public  List<Book> view() {
+	public List<Book> view() {
 		List<Book> list = new ArrayList<Book>();
 		try {
 			Connection con = DB.getCon();
@@ -62,6 +62,7 @@ public class BookDao implements IDAO {
 
 		return list;
 	}
+
 	@Override
 	public int delete(String callno) {
 		int status = 0;
@@ -78,8 +79,9 @@ public class BookDao implements IDAO {
 
 		return status;
 	}
+
 	@Override
-	public  int getIssued(String callno) {
+	public int getIssued(String callno) {
 		int issued = 0;
 		try {
 			Connection con = DB.getCon();
@@ -97,8 +99,9 @@ public class BookDao implements IDAO {
 
 		return issued;
 	}
+
 	@Override
-	public  boolean checkIssue(String callno) {
+	public boolean checkIssue(String callno) {
 		boolean status = false;
 		try {
 			Connection con = DB.getCon();
@@ -116,8 +119,9 @@ public class BookDao implements IDAO {
 
 		return status;
 	}
+
 	@Override
-	public  int issueBook(Loan bean) {
+	public int issueBook(Loan bean) {
 		System.out.println("inside issue book method");
 		System.out.println("loan details");
 
@@ -138,12 +142,13 @@ public class BookDao implements IDAO {
 				ps.setString(1, bean.getCallNo());
 				ps.setLong(2, bean.getStudent().getUserId());
 
-
 				ps.setDate(3, new java.sql.Date(bean.getIssuedDate().getTime()));
 				ps.setDate(4, new java.sql.Date(bean.getReturnDate().getTime()));
 
-				/*ps.setDate(3, (Date) bean.getIssuedDate());
-				ps.setDate(4, (Date) bean.getReturnDate());*/
+				/*
+				 * ps.setDate(3, (Date) bean.getIssuedDate()); ps.setDate(4, (Date)
+				 * bean.getReturnDate());
+				 */
 
 				ps.setString(5, bean.getReturnStatus());
 				// java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
@@ -170,6 +175,7 @@ public class BookDao implements IDAO {
 			return 0;
 		}
 	}
+
 	@Override
 	public int returnBook(String callno, int studentid) {
 		int status = 0;
@@ -195,6 +201,7 @@ public class BookDao implements IDAO {
 
 		return status;
 	}
+
 	@Override
 	public List<Loan> viewIssuedBooks() {
 		List<Loan> list = new ArrayList<Loan>();
@@ -207,7 +214,7 @@ public class BookDao implements IDAO {
 				bean.setCallNo(rs.getString("callno"));
 				bean.setIssuedDate(rs.getDate("issuedate"));
 				bean.setReturnDate(rs.getDate("returnDate"));
-				bean.setReturnStatus(rs.getString("isreturned"));				
+				bean.setReturnStatus(rs.getString("isreturned"));
 				Student student = (Student) new StudentDao().getStudentById((int) rs.getLong("studentid"));
 
 				// needs to be added after implementing find student by id method in dao
@@ -242,15 +249,11 @@ public class BookDao implements IDAO {
 		return null;
 	}
 
-	
-
 	@Override
 	public int delete(int id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-		
 
 	@Override
 	public int update(LibraryItem bean) {
@@ -265,9 +268,9 @@ public class BookDao implements IDAO {
 	}
 
 	@Override
-	public boolean authenticate(String email, String password) {
+	public long authenticate(String email, String password) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 	@Override
@@ -297,7 +300,7 @@ public class BookDao implements IDAO {
 			ps.setString(1, callno);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				bean=new Loan(); 
+				bean = new Loan();
 				bean.setCallNo(rs.getString("callno"));
 				bean.setIssuedDate(rs.getDate("issuedate"));
 				bean.setReturnDate(rs.getDate("returnDate"));
@@ -314,7 +317,7 @@ public class BookDao implements IDAO {
 
 	@Override
 	public Book getBook(String calno) {
-		Book bean=null;
+		Book bean = null;
 		try {
 			Connection con = DB.getCon();
 			PreparedStatement ps = con.prepareStatement("select * from e_book WHERE callno=?");
@@ -334,5 +337,35 @@ public class BookDao implements IDAO {
 			System.out.println(e);
 		}
 		return bean;
+	}
+
+	@Override
+	public void reserveBook(long studentId, String callno) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Book findByCallno(String callno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean checkifUserReserved(long userid, String callno) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void updateBook(Book book) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String findCallNoByUserId(long userid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

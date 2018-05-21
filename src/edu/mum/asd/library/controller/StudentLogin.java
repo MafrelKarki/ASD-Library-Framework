@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.mum.asd.library.dao.IDAO;
+import edu.mum.asd.library.model.Student;
 
 @WebServlet("/StudentLogin")
 public class StudentLogin extends HttpServlet {
@@ -36,12 +37,14 @@ public class StudentLogin extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		DAOFactory idaofactory=new DAOFactory();
-		IDAO student=idaofactory.getIDAO("Student");
+		IDAO studentFactory=idaofactory.getIDAO("Student");
 		
-		if (student.authenticate(email, password)) {
+		
+		if (studentFactory.authenticate(email, password) > 0) {
 //		if(email.equals("student@mail.com")&&password.equals("student")){
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
+			session.setAttribute("userid", studentFactory.authenticate(email, password));
 
 			request.getRequestDispatcher("navstudent.html").include(request, response);
 			request.getRequestDispatcher("librariancarousel.html").include(request, response);
