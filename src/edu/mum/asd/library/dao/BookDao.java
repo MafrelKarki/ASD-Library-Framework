@@ -7,11 +7,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import edu.mum.asd.library.dbconfiguration.QueryExecutor;
 import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.Loan;
+import edu.mum.asd.library.model.Payment;
 import edu.mum.asd.library.model.Student;
 
 public class BookDao implements IDAO {
@@ -171,22 +172,14 @@ public class BookDao implements IDAO {
 		}
 	}
 	@Override
-	public int returnBook(String callno, int studentid) {
+	public int returnBook(String callno) {
 		int status = 0;
 		try {
 			Connection con = DB.getCon();
-			PreparedStatement ps = con
-					.prepareStatement("update loan set isreturned='yes' where callno=? and studentid=?");
-			ps.setString(1, callno);
-			ps.setInt(2, studentid);
-
-			status = ps.executeUpdate();
-			if (status > 0) {
 				PreparedStatement ps2 = con.prepareStatement("update e_book set issued=? where callno=?");
 				ps2.setInt(1, getIssued(callno) - 1);
 				ps2.setString(2, callno);
 				status = ps2.executeUpdate();
-			}
 			con.close();
 
 		} catch (Exception e) {
@@ -204,6 +197,7 @@ public class BookDao implements IDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Loan bean = new Loan();
+				bean.setId(rs.getInt("loanid"));
 				bean.setCallNo(rs.getString("callno"));
 				bean.setIssuedDate(rs.getDate("issuedate"));
 				bean.setReturnDate(rs.getDate("returnDate"));
@@ -289,15 +283,16 @@ public class BookDao implements IDAO {
 	}
 
 	@Override
-	public Loan getLoanedBook(String callno) {
+	public Loan getLoanedBook(int callno) {
 		Loan bean = null;
 		try {
 			Connection con = DB.getCon();
-			PreparedStatement ps = con.prepareStatement("select * from loan where callno=?");
-			ps.setString(1, callno);
+			PreparedStatement ps = con.prepareStatement("select * from loan where loanid=?");
+			ps.setInt(1, callno);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				bean=new Loan(); 
+				bean.setId(rs.getInt("loanid"));
 				bean.setCallNo(rs.getString("callno"));
 				bean.setIssuedDate(rs.getDate("issuedate"));
 				bean.setReturnDate(rs.getDate("returnDate"));
@@ -334,5 +329,32 @@ public class BookDao implements IDAO {
 			System.out.println(e);
 		}
 		return bean;
+	}
+
+	@Override
+	public int save(Payment payment) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Payment> getPayments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getTotalAmounts() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateLoan(Loan loan) {
+		QueryExecutor qex = QueryExecutor.getInstance();
+		String query = "UPDATE loan SET isreturned='YES' WHERE loanid=?";
+		qex.insert(query,loan.getId());
+		qex.close();
+		return 0;
 	}
 }

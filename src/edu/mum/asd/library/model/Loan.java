@@ -4,17 +4,29 @@ package edu.mum.asd.library.model;
 import java.util.Calendar;
 import java.util.Date;
 
-import java.util.Date;
-
 import org.apache.commons.lang3.time.DateUtils;
 
 
 public class Loan {
+	private int id;
 	private String callNo;
 	private Date issuedDate;
 	private Date returnDate;
 	private String returnStatus;
 	private Student student;
+	private ItemState currentState;
+	
+	public double computeLoan() {
+		final double hourlyFine=5;
+		long numberOfDays=(new Date().getTime()-returnDate.getTime())/1000/60/60/24;
+		System.out.println(numberOfDays);
+		return hourlyFine*Math.round(numberOfDays);
+	}
+	
+	public int getExcessDays() {
+		return Math.round((new Date().getTime()-returnDate.getTime())/1000/60/60/24);
+	}
+	
 	public String getCallNo() {
 		return callNo;
 	}
@@ -71,8 +83,20 @@ public class Loan {
 		return "Loan [callNo=" + callNo + ", issuedDate=" + issuedDate + ", returnDate=" + returnDate
 				+ ", returnStatus=" + returnStatus + ", student=" + student + "]";
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-	
-	
-	
+	public ItemState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(ItemState currentState) {
+		this.currentState = currentState;
+	}
+
+		
 }

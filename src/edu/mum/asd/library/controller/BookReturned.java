@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.model.Loan;
 
-@WebServlet("/ViewIssuedBook")
-public class ViewIssuedBook extends HttpServlet {
+@WebServlet("/BookReturned")
+public class BookReturned extends HttpServlet {
 	/**
 	 * 
 	 */
@@ -38,11 +38,15 @@ public class ViewIssuedBook extends HttpServlet {
 
 		DAOFactory idaofaccotry=new DAOFactory();
 		IDAO bookdao=idaofaccotry.getIDAO("BookDao");
+		int loanId=Integer.parseInt(request.getParameter("loanid")); 
+		Loan loan=bookdao.getLoanedBook(loanId);
+		bookdao.returnBook(loan.getCallNo());
+		bookdao.updateLoan(loan);
 		List<Loan> list = bookdao.viewIssuedBooks();
-		System.out.println(list);
 		out.println("<div class='panel panel-default'>");
 		out.println("<div class='panel-heading'>Librarians</div>");
 		out.println("<div class='panel-body'>");
+		out.println("<div class='alert alert-success'>Book returned successfully</div>");
 		out.println("<table class='table table-bordered table-striped'>");
 		out.println(
 				"<tr><th>Callno</th><th>Student Id</th><th>Student Name</th><th>Student Mobile</th><th>Issued Date</th><th>Return Status</th></tr>");

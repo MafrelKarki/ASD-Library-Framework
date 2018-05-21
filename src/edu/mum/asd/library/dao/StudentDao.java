@@ -10,6 +10,7 @@ import edu.mum.asd.library.model.Book;
 import edu.mum.asd.library.model.Librarian;
 import edu.mum.asd.library.model.LibraryItem;
 import edu.mum.asd.library.model.Loan;
+import edu.mum.asd.library.model.Payment;
 import edu.mum.asd.library.model.Student;
 import edu.mum.asd.library.model.UserRole;
 
@@ -84,7 +85,7 @@ public class StudentDao implements IDAO {
 	}
 
 	@Override
-	public int returnBook(String callno, int studentid) {
+	public int returnBook(String callno) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -198,7 +199,7 @@ public class StudentDao implements IDAO {
 	}
 
 	@Override
-	public Loan getLoanedBook(String calno) {
+	public Loan getLoanedBook(int calno) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -207,6 +208,30 @@ public class StudentDao implements IDAO {
 	public Book getBook(String calno) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int save(Payment payment) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Payment> getPayments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getTotalAmounts() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateLoan(Loan loan) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

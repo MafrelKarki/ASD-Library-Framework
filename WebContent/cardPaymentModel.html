@@ -1,0 +1,34 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">Fine Payment</h4>
+			</div>
+			<div class="modal-body">
+				<form action="RegisterStudent" method="post">
+					<div class="form-group">
+						<label for="firstName">Amount </label> <input type="text"
+							class="form-control" name="amount" id="amount"
+							placeholder="Amount" disabled="disabled" value="5000"/>
+					</div>
+					<div class="form-group">
+						<label for="lastName">Card Type</label>
+						<select name="paymentMode" class="form-control">
+							<option hidden="true">Choose card type </option>
+							<option value="VISA_PAYMENT">VISA CARD PAYMENT</option>
+							<option value="CARD_PAYMENT">MASTER CARD PAYMENT</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="cardNumber">Card Number </label> <input type="text"
+							class="form-control" name="cardNumber" id="cardNumber"
+							placeholder="Card Number"/>
+					</div>
+					<button type="submit" class="btn btn-primary">Approve Payment</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

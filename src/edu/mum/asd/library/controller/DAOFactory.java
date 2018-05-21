@@ -3,6 +3,7 @@ package edu.mum.asd.library.controller;
 import edu.mum.asd.library.dao.BookDao;
 import edu.mum.asd.library.dao.IDAO;
 import edu.mum.asd.library.dao.LibrarianDao;
+import edu.mum.asd.library.dao.PaymentDao;
 import edu.mum.asd.library.dao.StudentDao;
 
 /**
@@ -14,8 +15,10 @@ public class DAOFactory {
 
 		if (type == "BookDao") {
 			return new BookDao();
-		}else if(type == "Student") {
+		} else if (type == "Student") {
 			return new StudentDao();
+		} else if (type == "PaymentDao") {
+			return new PaymentDao();
 		}
 		return new LibrarianDao();
 

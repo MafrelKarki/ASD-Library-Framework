@@ -16,7 +16,7 @@ public class CancelIssues implements IssueReturnCommand {
 	public int executeReturn(String callno, int studentid) {
 		DAOFactory idaofaccotry=new DAOFactory();
 		IDAO bookdao=idaofaccotry.getIDAO("BookDao");
-		return  bookdao.returnBook(callno,studentid);
+		return  bookdao.returnBook(callno);
 	}
 
 	
